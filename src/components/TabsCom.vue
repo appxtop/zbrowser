@@ -3,7 +3,7 @@
         <template v-for="(tab, index) in tabs" :key="tab.id">
             <div class="row tab" :class="{
                 active: state.tabIndex === index,
-            }" @click="changeTab(tab.id)">
+            }" @click="changeTab(tab.id)" @mouseover="tabIndex_hover = index" @mouseout="tabIndex_hover = -1">
                 <div class="faviconBox" v-if="tab.isLoading || (tab.favicons && tab.favicons[0])">
                     <img v-if="tab.isLoading" class="loading" :src="require('../assets/throbber_small.svg')" />
                     <img v-if="tab.favicons && tab.favicons[0]" class="favicon" :src="tab.favicons[0]" />
@@ -18,7 +18,7 @@
                     </svg>
                 </div>
                 <div class="splite" :class="{
-                    show: state.tabIndex !== index && index + 1 != state.tabIndex
+                    show: state.tabIndex !== index && index + 1 != state.tabIndex && index + 1 != tabIndex_hover && index != tabIndex_hover
                 }">
 
                 </div>
@@ -41,6 +41,10 @@
 <script lang="ts" setup>
 import state from '@/store/state';
 import mutations from '@/store/mutations'
+import { ref } from 'vue';
+
+const tabIndex_hover = ref(-1);
+
 
 const {
     tabs,
@@ -130,18 +134,12 @@ addTab();
                 height: 60%;
                 background-color: gray;
                 position: absolute;
-                right: 1px;
+                right: 0.5px;
                 opacity: 0;
+                transition: opacity 0.3s;
 
                 &.show {
                     opacity: 1;
-                }
-            }
-
-            &:hover {
-                &>.splite {
-                    transition: 0.2s;
-                    opacity: 0;
                 }
             }
 
