@@ -4,6 +4,7 @@
     <TabsCom />
     <CenterCom />
     <div class="line2" />
+    <BtnsCom />
   </div>
 </template>
 
@@ -11,12 +12,14 @@
 import { defineComponent } from 'vue';
 import TabsCom from './components/TabsCom.vue';
 import CenterCom from './components/CenterCom.vue';
+import BtnsCom from './components/BtnsCom.vue';
 
 export default defineComponent({
   name: 'App',
   components: {
     TabsCom,
-    CenterCom
+    CenterCom,
+    BtnsCom
   }
 });
 </script>
